@@ -1,0 +1,8 @@
+package filereader
+
+import "core:os"
+
+fread :: proc (name : string) -> ([]byte, bool) {
+  bytes,ok := os.read_entire_file (name)
+  return bytes, ok
+}
