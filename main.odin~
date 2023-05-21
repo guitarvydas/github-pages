@@ -1,0 +1,7 @@
+package odin2ghp
+
+import "core:os"
+
+main :: proc() {
+  file,ok := os.read_entire_file ("/Users/tarvydas/ps/ghp/front.md")
+}

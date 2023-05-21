@@ -1,0 +1,3 @@
+ODIN_FLAGS ?= -debug -o:none
+all:
+	odin build odin2ghp $(ODIN_FLAGS)
