@@ -3,40 +3,28 @@ package odin2ghp
 import "core:os"
 import "core:fmt"
 import "filereader"
+import zd "../odin0d/0d"
+import registry "../odin0d/syntax"
 
 filewriter :: proc (name : string, bytes : []byte) -> bool {
   return os.write_entire_file (name, bytes)
 }
 
-// main :: proc() {
-//     fmt.println("*** Obsidian to Github Pages ***")
-
-//     {
-//         echo_handler :: proc(eh: ^Eh, message: Message(string)) {
-//             send(eh, "stdout", message.datum)
-//         }
-
-//         echo0 := make_leaf("10", echo_handler)
-//         echo1 := make_leaf("11", echo_handler)
-
-//         top := make_container("Top")
-
-//         top.children = {
-//             o2g,
-//         }
-
-//         top.connections = {
-//             {.Down,   {nil, "stdin"},            {&top.children[0].input, "go"}},
-//             {.Up,     {top.children[0], "done"}, {&top.output, "stdout"}},
-//         }
-
-// 	top.handler(top, make_message("stdin", "hello"))
-//         print_output_list(top)
-//     }
-
 main :: proc() {
   fmt.println("--- begin ---")
-  bytes, okr := filereader.fread ("/Users/tarvydas/ps/ghp/front.md")
-  okw := filewriter ("/tmp/frontabc.md", bytes)
-  fmt.println("--- end ", okr, okw, " ---")
+    leaves: []Leaf_Initializer = {
+        {
+            name = "Reader",
+            init = filereader_instantiate,
+        },
+    }
+
+    reg := registry.make_component_registry(leaves, "obsidian2ghp.drawio")
+    main_container, ok := get_component_instance(reg, "main")
+    assert(ok, "Couldn't find main container... check the page name?")
+    main_container.handler(main_container, zd.make_message("stdin", "hello"))
+    zd.print_output_list(main_container)
+
+  fmt.println("--- file read ---")
+  fmt.println("--- end ---")
 }
