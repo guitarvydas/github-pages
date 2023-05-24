@@ -18,14 +18,7 @@ filereader_handler :: proc(eh: ^zd.Eh, message: zd.Message(string)) {
   }
 }
 
-filereader_instantiate :: proc (name : string) -> ^zd.Eh {
+instantiate :: proc (name : string) -> ^zd.Eh {
   return zd.make_leaf(name, filereader_handler)
 }
 
-// leaf_filereader_init :: proc(name: string) -> ^Eh {
-//     @(static) counter := 0
-//     counter += 1
-
-//     name_with_id := fmt.aprintf("Echo (ID:%d)", counter)
-//     return make_leaf(name_with_id, leaf_echo_proc)
-// }
