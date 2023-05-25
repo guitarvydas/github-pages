@@ -1,0 +1,44 @@
+Component_Registry{
+    initializers = map[
+	main=Container_Initializer{
+	    decl = Container_Decl{
+		file = "obsidian2ghp.drawio", 
+		name = "main", 
+		children = [
+		    Elem_Reference{
+			name = "filereader", 
+			id = 8}], 
+		connections = [
+		    Connect_Decl{
+			dir = "Down", 
+			source = Elem_Reference{
+			    name = "", 
+			    id = 0}, 
+			source_port = "stdin", 
+			target = Elem_Reference{
+			    name = "filereader", 
+			    id = 8}, 
+			target_port = "filename"}, 
+		    Connect_Decl{
+			dir = "Up", 
+			source = Elem_Reference{
+			    name = "filereader", 
+			    id = 8}, 
+			source_port = "error", 
+			target = Elem_Reference{
+			    name = "", 
+			    id = 0}, 
+			target_port = "stderr"}, 
+		    Connect_Decl{
+			dir = "Up", 
+			source = Elem_Reference{
+			    name = "filereader", 
+			    id = 8}, 
+			source_port = "out", 
+			target = Elem_Reference{
+			    name = "", 
+			    id = 0}, 
+			target_port = "stdout"}]}}, 
+	Reader=Leaf_Initializer{
+	    name = "Reader", 
+	    init = proc(string) -> ^Eh @ 10219D6E0}]}
