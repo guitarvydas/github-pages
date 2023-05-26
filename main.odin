@@ -5,27 +5,6 @@ import "core:fmt"
 import "filereader"
 import zd "../odin0d/0d"
 
-fread :: proc (name : string) -> ([]byte, bool) {
-  bytes,ok := os.read_entire_file (name)
-  return bytes, ok
-}
-
-inl_filereader_handler :: proc(eh: ^zd.Eh, message: zd.Message(string)) {
-  name : string = message.datum
-  bytes,ok := os.read_entire_file (name)
-  if ok {
-    zd.send(eh, "out", string(bytes))
-  } else {
-    zd.send (eh, "error", "*** file read error ***")
-  }
-}
-
-inl_instantiate :: proc (name : string) -> ^zd.Eh {
-  return zd.make_leaf(name, inl_filereader_handler)
-}
-
-///
-
 filewriter :: proc (name : string, bytes : []byte) -> bool {
   return os.write_entire_file (name, bytes)
 }
@@ -35,7 +14,7 @@ main :: proc() {
     leaves: []zd.Leaf_Initializer = {
         {
             name = "filereader",
-            init = inl_instantiate,
+            init = filereader.instantiate,
         },
     }
 
