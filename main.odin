@@ -25,10 +25,12 @@ main :: proc() {
     
     main_container, ok := zd.get_component_instance(reg, "main")
     assert(ok, "Couldn't find main container... check the page name?")
-    main_container.handler(main_container, zd.make_message("stdin", "test.txt"))
+    main_container.handler(main_container, zd.make_message("input_file", "test.txt"))
 
     fmt.println ("*** outputs ***")
-    zd.print_output_list(main_container)
+    //outs := zd.output_list (main_container)
+    //fmt.println (outs)
+        zd.print_output_list(main_container)
     fmt.println ("***         ***")
 
     fmt.println("--- end ---")
