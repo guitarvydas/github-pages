@@ -1,0 +1,25 @@
+again, not meant to use up your time, unless it's a no-brainer... 
+current head-scratcher:
+
+I want to store the .datum of a message, then use it and free it later.
+
+In a GC'ed language, this is easy, but, I haven't figured out how to do this correctly in Odin.
+
+```
+...
+@(private="file") first : string
+@(private="file") second : string
+...
+  switch state {
+    case .idle:
+      switch message.port {
+        case "in_first":
+          first = message.datum     // <<<
+          state = .waitingForSecond
+...
+gc :: proc () {
+  free (first)                      // <<<
+  free (second)
+}
+```
+

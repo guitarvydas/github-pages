@@ -32,7 +32,7 @@ main :: proc() {
     main_container, ok := zd.get_component_instance(reg, "main")
     assert(ok, "Couldn't find main container... check the page name?")
     main_container.handler(main_container, zd.make_message("input_file", "test.txt"))
-    //main_container.handler(main_container, zd.make_message("output_file", "/tmp/out.txt"))
+    main_container.handler(main_container, zd.make_message("output_file", "/tmp/out.txt"))
 
     fmt.println ("*** outputs ***")
     //outs := zd.output_list (main_container)

@@ -10,7 +10,7 @@ filereader_handler :: proc(eh: ^zd.Eh, message: zd.Message(string)) {
   bytes,ok := os.read_entire_file (name)
   if ok {
     fmt.println ("filereader ok send")
-    zd.send(eh, "out", bytes)
+    zd.send(eh, "out", transmute(string)bytes)
   } else {
     fmt.println ("filereader NOT ok")
     zd.send (eh, "error", "*** file read error ***")
