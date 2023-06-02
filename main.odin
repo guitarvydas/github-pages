@@ -10,7 +10,7 @@ import reg "../odin0d/registry0d"
 
 main :: proc() {
   fmt.println("--- begin ---")
-    leaves: []zd.Leaf_Initializer = {
+    leaves: []reg.Leaf_Initializer = {
         {
             name = "filereader",
             init = fr.instantiate,
@@ -28,11 +28,7 @@ main :: proc() {
     //zd.dump_diagram ("obsidian2ghp.drawio")
 
     parts := reg.make_component_registry(leaves, "obsidian2ghp.drawio")
-    // zd.dump_p
-
-
-
-
+    // zd.dump_registry (parts)
 
     main_container, ok := reg.get_component_instance(parts, "main")
     assert(ok, "Couldn't find main container... check the page name?")
