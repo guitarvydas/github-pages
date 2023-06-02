@@ -6,6 +6,7 @@ import fr "filereader"
 import fw "filewriter"
 import dr "deracer"
 import zd "../odin0d/0d"
+import reg "../odin0d/registry0d"
 
 main :: proc() {
   fmt.println("--- begin ---")
@@ -26,10 +27,14 @@ main :: proc() {
 
     //zd.dump_diagram ("obsidian2ghp.drawio")
 
-    reg := zd.make_component_registry(leaves, "obsidian2ghp.drawio")
-    // zd.dump_registry (reg)
-    
-    main_container, ok := zd.get_component_instance(reg, "main")
+    parts := reg.make_component_registry(leaves, "obsidian2ghp.drawio")
+    // zd.dump_p
+
+
+
+
+
+    main_container, ok := reg.get_component_instance(parts, "main")
     assert(ok, "Couldn't find main container... check the page name?")
     main_container.handler(main_container, zd.make_message("input_file", "test.txt"))
     main_container.handler(main_container, zd.make_message("output_file", "/tmp/out.txt"))
