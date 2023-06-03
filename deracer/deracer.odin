@@ -23,7 +23,7 @@ State_and_two_saved_messages :: struct {
   state : States_of_deracer
 }
 
-deracer_handler :: proc(eh: ^zd.Eh, message: zd.Message_Untyped, instance_data: ^State_and_two_saved_messages) {
+deracer_handler :: proc(eh: ^zd.Eh, message: zd.Message (any), instance_data: ^State_and_two_saved_messages) {
   fmt.println (">>> deracer", instance_data.state, message)
   // this is a clumsy first-cut implementation ; this version saves the whole message, but
   // we don't actually need to save the port, it's just easier to clone the whole message (including
