@@ -5,15 +5,8 @@ import "core:fmt"
 
 main :: proc() {
   fmt.println("--- begin ---")
-  m := make(map[string]string);
-  m["name"] = "Paul"
-  elem,ok := m["name"];
-  fmt.println("name=", elem, ok);
-
-  p : rawptr = &m;
-  deref_m := (transmute(^map[string]string)p)^
-  elem2,ok2 := m["name"];
-  fmt.println("name=", elem2, ok2);
-
+  s : string = "pault"
+  transportable_s := transmute([]u8)s
+  fmt.println(len(s), s, len(transportable_s), transportable_s)
   fmt.println("--- end");
 }
