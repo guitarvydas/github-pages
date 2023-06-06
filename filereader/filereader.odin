@@ -4,13 +4,13 @@ import "core:fmt"
 import "core:os"
 import zd "../../odin0d/0d"
 
-filereader_handler :: proc(eh: ^zd.Eh, message: zd.Message(string)) {
-  name : string = message.datum
+filereader_handler :: proc(eh: ^zd.Eh, message: zd.Message) {
+  name := message.datum.(string)
     fmt.println (">>> filereader", message)
   bytes,ok := os.read_entire_file (name)
   if ok {
     fmt.println ("filereader ok send")
-    zd.send(eh, "out", transmute(string)bytes)
+    zd.send(eh, "out", bytes)
   } else {
     fmt.println ("filereader NOT ok")
     zd.send (eh, "error", "*** file read error ***")

@@ -1,5 +1,4 @@
 ODIN_FLAGS ?= -debug -o:none
 all:
 	rm -f /tmp/front*.md
-	odin build . $(ODIN_FLAGS)
-	./github-pages.bin
+	odin run . $(ODIN_FLAGS)
