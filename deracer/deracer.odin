@@ -52,8 +52,10 @@ deracer_handler :: proc(eh: ^zd.Eh, message: zd.Message, instance_data: ^Two_sav
 }
 
 sequential_send :: proc (eh: ^zd.Eh, instance_data: ^Two_saved_messages) {
+  fmt.println ("*** deracer sequential send", instance_data.first, 
+    instance_data.first.port,instance_data.first.datum)
   zd.set_state (eh, States.idle)
-  zd.send (eh, "first", instance_data.first)
+  zd.send (eh, "first", instance_data.first.datum)
   zd.send (eh, "second", instance_data.second)
   gc (instance_data)
 }
@@ -64,7 +66,6 @@ gc :: proc (instance_data: ^Two_saved_messages) {
 }
 
 instantiate :: proc (name : string) -> ^zd.Eh {
-  fmt.println ("*** deracer instantiate")
   instance_data := new (Two_saved_messages)
   self := zd.make_leaf(name, instance_data, deracer_handler)
   zd.set_state (self, States.idle)
