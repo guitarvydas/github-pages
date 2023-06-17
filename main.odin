@@ -31,10 +31,10 @@ main :: proc() {
             name = "deracer",
             init = dr.instantiate,
         },
-        // {
-        //     name = "buffer",
-        //     init = bf.instantiate,
-        // },
+        {
+            name = "buffer",
+            init = bf.instantiate,
+        },
     }
 
     //reg.dump_diagram ("obsidian2ghp.drawio")
