@@ -39,8 +39,13 @@ main :: proc() {
 
     main_container, ok := reg.get_component_instance(parts, "main")
     assert(ok, "Couldn't find main container... check the page name?")
-    main_container.handler(main_container, zd.make_message_from_string ("input_file", "test.txt"), nil)
+
     main_container.handler(main_container, zd.make_message_from_string ("output_file", "/tmp/out.txt"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("front", "/Users/tarvydas/ps/ghp/front.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("obsidian_file", "test.txt"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("back", "/Users/tarvydas/ps/ghp/back.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("close", ""), nil)
+
 
     fmt.println ("*** outputs ***")
     //outs := zd.output_list (main_container)
