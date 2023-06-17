@@ -17,7 +17,7 @@ Two_saved_datums :: struct {
 
 deracer_handler :: proc(eh: ^zd.Eh, message: zd.Message, ptr_instance_data_any: ^any) {
   ptr_d := cast(^Two_saved_datums)ptr_instance_data_any
-  log.info ("deracer", transmute(States)eh.state, message.port)
+  log.debug ("deracer", transmute(States)eh.state, message.port)
   switch transmute(States)eh.state {
     case .idle:
       switch message.port {
@@ -55,7 +55,7 @@ sequential_send :: proc (eh: ^zd.Eh, instance_data: ^Two_saved_datums) {
 }
 
 gc :: proc (instance_data: ^Two_saved_datums) {
-   log.info ("deracer gc")
+   log.debug ("deracer gc")
    instance_data.first.reclaim (instance_data.first)
    instance_data.second.reclaim (instance_data.second)
 }

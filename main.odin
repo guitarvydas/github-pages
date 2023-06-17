@@ -5,6 +5,7 @@ import "core:fmt"
 import "core:log"
 import fr "filereader"
 import fw "filewriter"
+import bf "buffer"
 import dr "deracer"
 import zd "../odin0d/0d"
 import reg "../odin0d/registry0d"
@@ -30,17 +31,21 @@ main :: proc() {
             name = "deracer",
             init = dr.instantiate,
         },
+        // {
+        //     name = "buffer",
+        //     init = bf.instantiate,
+        // },
     }
 
-    //zd.dump_diagram ("obsidian2ghp.drawio")
+    //reg.dump_diagram ("obsidian2ghp.drawio")
 
     parts := reg.make_component_registry(leaves, "obsidian2ghp.drawio")
-    // zd.dump_registry (parts)
+    reg.dump_registry (parts)
 
     main_container, ok := reg.get_component_instance(parts, "main")
     assert(ok, "Couldn't find main container... check the page name?")
 
-    main_container.handler(main_container, zd.make_message_from_string ("output_file", "/tmp/out.txt"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("output_file", "/tmp/2023-06-16-test.txt"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("front1", "/Users/tarvydas/ps/ghp/front.md"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("title","title: \"Test June 17, 2023\""), nil)
     main_container.handler(main_container, zd.make_message_from_string ("front2", "/Users/tarvydas/ps/ghp/front.md"), nil)

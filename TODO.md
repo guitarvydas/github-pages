@@ -1,0 +1,4 @@
+- generate main.odin/leaves
+- change datum to use slice
+- create title for blog post
+- fail if part missing

@@ -1,4 +1,4 @@
-package filewriter
+package buffer
 
 import "core:fmt"
 import "core:log"
@@ -13,7 +13,7 @@ Instance_Data :: struct {
 
 
 filewriter_handler :: proc(eh: ^zd.Eh, message: zd.Message, ptr_instance_data: ^any) {
-  log.debug ("filewriter", message.port)
+  log.info ("filewriter", message.port)
   d := cast(^Instance_Data)ptr_instance_data
   switch message.port {
   case "filename":
@@ -24,14 +24,11 @@ filewriter_handler :: proc(eh: ^zd.Eh, message: zd.Message, ptr_instance_data: ^
       } else {
         zd.send (eh, "error", dt.str ("*** file write error ***"))
       }
-  case:
-      fmt.println ("unhandled message in filewriter", message.port) 
-      assert (false)
   }
 }
 
 instantiate :: proc (name : string) -> ^zd.Eh {
-  log.debug ("! filewriter instantiate")
+  log.info ("filewriter instantiate")
   instance_data := new (Instance_Data)
   return zd.leaf_new(name, filewriter_handler, cast(^any)instance_data)
 }
