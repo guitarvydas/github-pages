@@ -41,7 +41,9 @@ main :: proc() {
     assert(ok, "Couldn't find main container... check the page name?")
 
     main_container.handler(main_container, zd.make_message_from_string ("output_file", "/tmp/out.txt"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("front", "/Users/tarvydas/ps/ghp/front.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("front1", "/Users/tarvydas/ps/ghp/front.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("title","title: \"Test June 17, 2023\""), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("front2", "/Users/tarvydas/ps/ghp/front.md"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("obsidian_file", "test.txt"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("back", "/Users/tarvydas/ps/ghp/back.md"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("close", ""), nil)
