@@ -21,25 +21,26 @@ deracer_handler :: proc(eh: ^zd.Eh, message: zd.Message, ptr_instance_data_any: 
   switch transmute(States)eh.state {
     case .idle:
       switch message.port {
-        case "in_first":
+        case "first":
           ptr_d^.first = message.datum.clone (message.datum)
           zd.set_state (eh, States.waitingForSecond)
-        case "in_second":
+        case "second":
           ptr_d^.second = message.datum.clone (message.datum)
           zd.set_state (eh, States.waitingForFirst)
         case:
+	  log.debug ("deracer", transmute(States)eh.state, message)
           zd.send (eh, "error", dt.str ("sequencing error A"))
       }
     case .waitingForSecond:
       switch message.port {
-        case "in_second":
+        case "second":
           ptr_d^.second = message.datum.clone (message.datum)
           sequential_send (eh, ptr_d)
         case : zd.send (eh, "error", dt.str ("sequencing error B"))
       }
     case .waitingForFirst:
       switch message.port {
-        case "in_first":
+        case "first":
           ptr_d^.first = message.datum.clone (message.datum)
           sequential_send (eh, ptr_d)
         case : zd.send (eh, "error", dt.str ("sequencing error C"))
@@ -61,6 +62,7 @@ gc :: proc (instance_data: ^Two_saved_datums) {
 }
 
 instantiate :: proc (name : string) -> ^zd.Eh {
+  log.debug ("! deracer instantiate")
   instance_data := new (Two_saved_datums)
   self := zd.leaf_new (name, deracer_handler, cast(^any)instance_data)
   zd.set_state (self, States.idle)

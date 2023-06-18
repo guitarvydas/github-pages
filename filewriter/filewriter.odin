@@ -17,9 +17,14 @@ filewriter_handler :: proc(eh: ^zd.Eh, message: zd.Message, ptr_instance_data: ^
   d := cast(^Instance_Data)ptr_instance_data
   switch message.port {
   case "filename":
-      d.output_filename = strings.clone (dt.datum_to_string (message.datum))
+      s := strings.clone (dt.datum_to_string (message.datum))
+      log.debug ("filewriter gets filename 1", message)
+      log.debug ("filewriter gets filename 2", dt.datum_to_string (message.datum), s)
+      d.output_filename = s
   case "data":
+      log.debug ("filewriter", len (d.output_filename), d.output_filename)
       ok := os.write_entire_file (d.output_filename, transmute ([]u8)dt.datum_to_string (message.datum))
+      log.debug ("write_entire_file returns", ok)
       if ok {
       } else {
         zd.send (eh, "error", dt.str ("*** file write error ***"))
