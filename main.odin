@@ -45,10 +45,9 @@ main :: proc() {
     main_container, ok := reg.get_component_instance(parts, "main")
     assert(ok, "Couldn't find main container... check the page name?")
 
-    main_container.handler(main_container, zd.make_message_from_string ("begin", "x"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("output_file", "/tmp/2023-06-17y.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("output_file", "/tmp/2023-06-18.md"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("front1", "/Users/tarvydas/ps/ghp/front.md"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("title","title: \"Test June 17y, 2023\"\n"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("title","title: \"Test June 18, 2023\"\n"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("front2", "/Users/tarvydas/ps/ghp/front2.md"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("obsidian_file", "test.txt"), nil)
     main_container.handler(main_container, zd.make_message_from_string ("back", "/Users/tarvydas/ps/ghp/back.md"), nil)
