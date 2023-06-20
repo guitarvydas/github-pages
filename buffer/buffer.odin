@@ -12,6 +12,7 @@ Instance_Data :: struct {
 
 handler :: proc(eh: ^zd.Eh, message: zd.Message, ptr_instance_data: ^any) {
   log.debug ("buffer", message.port)
+  fmt.println ("buffer", message.port)
   d := cast(^Instance_Data)ptr_instance_data
   switch message.port {
   case "open":

@@ -18,6 +18,7 @@ Two_saved_datums :: struct {
 deracer_handler :: proc(eh: ^zd.Eh, message: zd.Message, ptr_instance_data_any: ^any) {
   ptr_d := cast(^Two_saved_datums)ptr_instance_data_any
   log.debug ("deracer", transmute(States)eh.state, message.port)
+  fmt.println ("deracer", transmute(States)eh.state, message.port)
   switch transmute(States)eh.state {
     case .idle:
       switch message.port {
