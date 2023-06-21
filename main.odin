@@ -14,10 +14,10 @@ import reg "../odin0d/registry0d"
 main :: proc() {
   fmt.println("--- begin ---")
 
-    context.logger = log.create_console_logger(
-        lowest=.Debug, // Or .Info, ... etc.
-        opt={.Level, .Time, .Terminal_Color},
-    )
+    // context.logger = log.create_console_logger(
+    //     lowest=.Debug, // Or .Info, ... etc.
+    //     opt={.Level, .Time, .Terminal_Color},
+    // )
     
     leaves: []reg.Leaf_Initializer = {
         {
@@ -50,18 +50,7 @@ main :: proc() {
     main_container, ok := reg.get_component_instance(parts, "main")
     assert(ok, "Couldn't find main container... check the page name?")
 
-    main_container.handler(main_container, zd.make_message_from_string ("output_file", "test_out.md"), nil)
-    //main_container.handler(main_container, zd.make_message_from_string ("front1", "/Users/tarvydas/ps/ghp/front.md"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("front1", "front.md"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("title","title: \"Test June 19, 2023\"\n"), nil)
-    //main_container.handler(main_container, zd.make_message_from_string ("front2", "/Users/tarvydas/ps/ghp/front2.md"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("front2", "front2.md"), nil)
-
-    //main_container.handler(main_container, zd.make_message_from_string ("obsidian_file", "/Users/tarvydas/ps/2023-06-19-Sequential Pattern.md"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("obsidian_file", "test_in.md"), nil)
-    //main_container.handler(main_container, zd.make_message_from_string ("back", "/Users/tarvydas/ps/ghp/back.md"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("back", "back.md"), nil)
-    main_container.handler(main_container, zd.make_message_from_string ("close", ""), nil)
+    send_test_messages (main_container)
 
 
     fmt.println ("*** outputs ***")
@@ -70,3 +59,27 @@ main :: proc() {
 
     fmt.println("--- end ---")
 }
+
+    
+send_test_messages :: proc (main_container : ^zd.Eh) {
+    main_container.handler(main_container, zd.make_message_from_string ("output_file", "test_out.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("front1", "front.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("title","title: \"Test June 19, 2023\"\n"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("front2", "front2.md"), nil)
+
+    main_container.handler(main_container, zd.make_message_from_string ("obsidian_file", "test_in.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("back", "back.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("close", ""), nil)
+}
+
+send_messages :: proc (main_container : ^zd.Eh) {
+    main_container.handler(main_container, zd.make_message_from_string ("output_file", "test_out.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("front1", "/Users/tarvydas/ps/ghp/front.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("title","title: \"Test June 19, 2023\"\n"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("front2", "/Users/tarvydas/ps/ghp/front2.md"), nil)
+
+    main_container.handler(main_container, zd.make_message_from_string ("obsidian_file", "/Users/tarvydas/ps/2023-06-19-Sequential Pattern.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("back", "/Users/tarvydas/ps/ghp/back.md"), nil)
+    main_container.handler(main_container, zd.make_message_from_string ("close", ""), nil)
+}
+

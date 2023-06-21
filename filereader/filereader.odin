@@ -10,7 +10,6 @@ filereader_handler :: proc(eh: ^zd.Eh, message: zd.Message, instance_data: ^any)
   // ignore instance_data
   name := dt.datum_to_string (message.datum)
     log.debug ("FILEREADER", message.port)
-    fmt.println ("FILEREADER", message.port, message.datum.repr (message.datum))
   bytes,ok := os.read_entire_file (name) // []byte
   p := new (dt.Datum)
   p.ptr = raw_data (bytes)
